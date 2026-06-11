@@ -1,2 +1,2 @@
-# bol-o
+# bolão
 bolão minhas primas
