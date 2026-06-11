@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Primas da Bola ⚽</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
 <style>
   :root {
     --green: #16a34a;
@@ -301,7 +302,6 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyBCBIiJz2cGCOYk-OL-6UwD-WSVStAvhzs",
   authDomain: "primas-da-bola.firebaseapp.com",
@@ -327,40 +327,48 @@ const JOGOS = [
   {
     id: 'j1',
     time1: 'México',
-    flag1: 'MEX',
     time2: 'África do Sul',
-    flag2: 'RSA',
     hora: '16:00',
     data: '11/06'
   },
   {
     id: 'j2',
     time1: 'Coreia do Sul',
-    flag1: 'KOR',
     time2: 'República Tcheca',
-    flag2: 'CZE',
     hora: '23:00',
     data: '11/06'
   },
   {
     id: 'j3',
     time1: 'Canadá',
-    flag1: 'CAN',
     time2: 'Bósnia e Herzegovina',
-    flag2: 'BIH',
     hora: '16:00',
     data: '12/06'
   },
   {
     id: 'j4',
     time1: 'Estados Unidos',
-    flag1: 'USA',
     time2: 'Paraguai',
-    flag2: 'PAR',
     hora: '22:00',
     data: '12/06'
   }
 ];
+
+const BANDEIRAS = {
+  'México': 'mx',
+  'África do Sul': 'za',
+  'Coreia do Sul': 'kr',
+  'República Tcheca': 'cz',
+  'Canadá': 'ca',
+  'Bósnia e Herzegovina': 'ba',
+  'Estados Unidos': 'us',
+  'Paraguai': 'py'
+};
+
+function getBandeira(time) {
+  const code = BANDEIRAS[time];
+  return code ? `<span class="fi fi-${code}"></span>` : '🏳️';
+}
 
 // ── STATE ────────────────────────────────────────────────
 
@@ -491,14 +499,14 @@ function renderJogos() {
 
     list.innerHTML += `
       <div class="jogo-card">
-        <div class="jogo-time"><span class="jogo-flag">${j.flag1}</span><span class="jogo-time-name">${j.time1}</span></div>
+        <div class="jogo-time"><span class="jogo-flag">${getBandeira(j.time1)}</span><span class="jogo-time-name">${j.time1}</span></div>
         <div style="text-align:center">
           <div class="jogo-vs">×</div>
           <span class="jogo-hora">${j.hora}</span>
           <span class="jogo-data">${j.data}</span>
           ${placarHtml}
         </div>
-        <div class="jogo-time"><span class="jogo-flag">${j.flag2}</span><span class="jogo-time-name">${j.time2}</span></div>
+        <div class="jogo-time"><span class="jogo-flag">${getBandeira(j.time2)}</span><span class="jogo-time-name">${j.time2}</span></div>
       </div>`;
   });
 
@@ -514,7 +522,7 @@ function renderAdminJogos() {
     const r = resultadosMap[j.id] || {};
     ap.innerHTML += `
       <div class="admin-jogo">
-        <label>${j.flag1} ${j.time1} × ${j.time2} ${j.flag2}</label>
+        <label>${getBandeira(j.time1)} ${j.time1} × ${j.time2} ${getBandeira(j.time2)}</label>
         <div class="admin-score-row">
           <input type="number" min="0" max="20" id="r1-${j.id}" value="${r.g1 ?? ''}" placeholder="0">
           <span>×</span>
@@ -619,7 +627,7 @@ function abrirPalpite(profile) {
         </div>
         <div class="palpite-times-row">
           <div class="palpite-time">
-            <span class="palpite-flag">${j.flag1}</span>
+            <span class="palpite-flag">${getBandeira(j.time1)}</span>
             <span class="palpite-time-name">${j.time1}</span>
           </div>
           <div class="palpite-score">
@@ -628,7 +636,7 @@ function abrirPalpite(profile) {
             <input class="score-input" type="number" min="0" max="20" id="s2-${j.id}" value="${saved.g2 ?? ''}" placeholder="0" inputmode="numeric">
           </div>
           <div class="palpite-time">
-            <span class="palpite-flag">${j.flag2}</span>
+            <span class="palpite-flag">${getBandeira(j.time2)}</span>
             <span class="palpite-time-name">${j.time2}</span>
           </div>
         </div>
