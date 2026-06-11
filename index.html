@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primas da Bola ⚽</title>
+<style>
+  :root {
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --green-dark: #14532d;
+    --gold: #d97706;
+    --gold-light: #fef3c7;
+    --bg: #f0fdf4;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; max-width: 480px; margin: 0 auto; padding: 20px 16px 40px; min-height: 100vh; }
+  .screen.active { display: block; }
+
+  /* ── HEADER ── */
+  .app-header {
+    text-align: center;
+    padding: 28px 0 24px;
+  }
+  .app-header .ball { font-size: 48px; display: block; margin-bottom: 8px; }
+  .app-header h1 { font-size: 26px; font-weight: 700; color: var(--green-dark); letter-spacing: -0.5px; }
+  .app-header p { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+  /* ── PROFILES ── */
+  .profiles-section h2 { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+  .profiles-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 28px; }
+
+  .profile-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    background: none; border: none; cursor: pointer; padding: 10px 4px;
+    border-radius: var(--radius-sm); transition: background 0.15s, transform 0.1s;
+    position: relative;
+  }
+  .profile-btn:hover { background: rgba(22,163,74,0.07); }
+  .profile-btn:active { transform: scale(0.95); }
+
+  .avatar-wrap { position: relative; }
+  .avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 2.5px solid var(--border);
+    overflow: hidden; display: flex; align-items: center; justify-content: center;
+    font-size: 17px; font-weight: 700; background: #f1f5f9;
+    transition: border-color 0.15s;
+  }
+  .profile-btn:hover .avatar { border-color: var(--green); }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .upload-badge {
+    position: absolute; bottom: 0; right: -2px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--green); border: 2px solid white;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 11px; color: white;
+    transition: background 0.15s;
+  }
+  .upload-badge:hover { background: var(--green-dark); }
+
+  .profile-name { font-size: 11px; font-weight: 600; color: var(--text); }
+
+  /* ── TABS ── */
+  .tabs { display: flex; background: white; border-radius: 10px; padding: 4px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .tab { flex: 1; padding: 8px; font-size: 13px; font-weight: 600; background: none; border: none; cursor: pointer; border-radius: 7px; color: var(--muted); transition: all 0.15s; }
+  .tab.active { background: var(--green); color: white; }
+
+  /* ── SECTION HEADING ── */
+  .sec-heading {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .sec-heading h2 { font-size: 15px; font-weight: 700; color: var(--text); }
+  .sec-heading .date-badge { font-size: 12px; color: var(--muted); background: white; border: 1px solid var(--border); padding: 3px 10px; border-radius: 20px; }
+
+  /* ── JOGOS ── */
+  .jogo-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    margin-bottom: 10px; display: flex; align-items: center;
+    justify-content: space-between; gap: 8px;
+  }
+  .jogo-time { text-align: center; flex: 1; }
+  .jogo-flag { font-size: 28px; display: block; margin-bottom: 4px; }
+  .jogo-time-name { font-size: 12px; font-weight: 700; color: var(--text); }
+  .jogo-vs { font-size: 20px; font-weight: 800; color: var(--border); flex-shrink: 0; }
+  .jogo-info-block { text-align: center; }
+  .jogo-hora { font-size: 14px; font-weight: 700; color: var(--green); display: block; }
+  .jogo-data { font-size: 11px; color: var(--muted); }
+
+  .pts-info { display: flex; gap: 8px; margin-top: 4px; margin-bottom: 20px; }
+  .pts-badge { flex: 1; background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; text-align: center; }
+  .pts-badge .pts-num { font-size: 20px; font-weight: 800; color: var(--green); display: block; }
+  .pts-badge .pts-label { font-size: 11px; color: var(--muted); }
+
+  /* ── RANKING ── */
+  .ranking-item {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 12px 14px;
+    margin-bottom: 8px; display: flex; align-items: center; gap: 12px;
+  }
+  .ranking-item:first-child { border-color: #fbbf24; background: #fffbeb; }
+  .rank-pos { font-size: 20px; width: 28px; text-align: center; flex-shrink: 0; }
+  .rank-avatar { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; flex-shrink: 0; }
+  .rank-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .rank-info { flex: 1; }
+  .rank-name { font-size: 15px; font-weight: 700; }
+  .rank-sub { font-size: 12px; color: var(--muted); }
+  .rank-pts { font-size: 18px; font-weight: 800; color: var(--green); }
+
+  /* ── PALPITE SCREEN ── */
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 20px; padding: 7px 14px;
+    font-size: 13px; font-weight: 600; cursor: pointer; color: var(--muted);
+    margin-bottom: 20px; transition: all 0.15s;
+  }
+  .back-btn:hover { background: var(--bg); color: var(--text); }
+
+  .palpite-header {
+    display: flex; align-items: center; gap: 14px;
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px; margin-bottom: 20px;
+  }
+  .palpite-avatar { width: 48px; height: 48px; border-radius: 50%; overflow: hidden; border: 2.5px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; background: #f1f5f9; flex-shrink: 0; }
+  .palpite-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .palpite-user-name { font-size: 18px; font-weight: 700; }
+  .palpite-user-sub { font-size: 13px; color: var(--muted); }
+
+  .palpite-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
+  }
+  .palpite-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .palpite-jogo-info { font-size: 13px; color: var(--muted); }
+  .palpite-jogo-hora { font-size: 13px; font-weight: 700; color: var(--green); }
+
+  .palpite-times-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .palpite-time { text-align: center; flex: 1; }
+  .palpite-flag { font-size: 32px; display: block; margin-bottom: 4px; }
+  .palpite-time-name { font-size: 12px; font-weight: 700; }
+
+  .palpite-score { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .score-input {
+    width: 52px; height: 52px; border: 2px solid var(--border);
+    border-radius: 10px; text-align: center; font-size: 24px; font-weight: 800;
+    color: var(--text); background: var(--bg); outline: none;
+    transition: border-color 0.15s;
+  }
+  .score-input:focus { border-color: var(--green); background: white; }
+  .score-x { font-size: 16px; font-weight: 800; color: var(--muted); }
+
+  .saved-badge {
+    display: none; align-items: center; gap: 4px; margin-top: 10px;
+    font-size: 12px; color: var(--green); font-weight: 600;
+  }
+  .saved-badge.show { display: flex; }
+
+  .save-btn {
+    width: 100%; padding: 14px; background: var(--green); color: white;
+    border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700;
+    cursor: pointer; margin-top: 8px; transition: opacity 0.15s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+  .save-btn:hover { opacity: 0.9; }
+  .save-btn:active { transform: scale(0.98); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(10px);
+    background: var(--text); color: white; padding: 11px 22px;
+    border-radius: 24px; font-size: 14px; font-weight: 600;
+    opacity: 0; transition: all 0.25s; pointer-events: none; z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── RESULT ADMIN ── */
+  .admin-toggle { text-align: center; margin-top: 24px; }
+  .admin-btn { background: none; border: 1px dashed var(--border); color: var(--muted); font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; }
+  .admin-panel { display: none; background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-top: 10px; }
+  .admin-panel.show { display: block; }
+  .admin-panel h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+  .admin-jogo { margin-bottom: 12px; }
+  .admin-jogo label { font-size: 12px; color: var(--muted); font-weight: 600; display: block; margin-bottom: 6px; }
+  .admin-score-row { display: flex; align-items: center; gap: 8px; }
+  .admin-score-row input { width: 48px; height: 40px; border: 1px solid var(--border); border-radius: 8px; text-align: center; font-size: 18px; font-weight: 700; background: var(--bg); outline: none; }
+  .admin-score-row input:focus { border-color: var(--green); }
+  .admin-score-row span { color: var(--muted); font-weight: 700; }
+  .calc-btn { width: 100%; padding: 10px; background: var(--gold); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+
+  /* Avatar colors */
+  .c-lidia   { background: #fce7f3; color: #9d174d; }
+  .c-isa     { background: #d1fae5; color: #065f46; }
+  .c-marina  { background: #dbeafe; color: #1e40af; }
+  .c-mariane { background: #fef3c7; color: #92400e; }
+  .c-sarah   { background: #ede9fe; color: #5b21b6; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ TELA HOME ═══════════════════ -->
+<div id="screen-home" class="screen active">
+  <div class="app-header">
+    <span class="ball">⚽</span>
+    <h1>Primas da Bola</h1>
+    <p>Copa do Mundo 2026</p>
+  </div>
+
+  <div class="profiles-section">
+    <h2>Escolha seu perfil</h2>
+    <div class="profiles-grid" id="profiles-grid"></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('jogos')">🗓 Jogos do dia</button>
+    <button class="tab" onclick="showTab('ranking')">🏆 Placar</button>
+  </div>
+
+  <div id="tab-jogos">
+    <div class="sec-heading">
+      <h2>Jogos de hoje</h2>
+      <span class="date-badge" id="hoje-data"></span>
+    </div>
+    <div id="jogos-list"></div>
+
+    <div class="pts-info">
+      <div class="pts-badge">
+        <span class="pts-num">5pts</span>
+        <span class="pts-label">Acerta o vencedor (ou empate)</span>
+      </div>
+      <div class="pts-badge">
+        <span class="pts-num">10pts</span>
+        <span class="pts-label">Crava o placar exato</span>
+      </div>
+    </div>
+
+    <div class="admin-toggle">
+      <button class="admin-btn" onclick="toggleAdmin()">⚙ Lançar resultados</button>
+    </div>
+    <div class="admin-panel" id="admin-panel">
+      <h3>Resultado oficial dos jogos</h3>
+      <div id="admin-jogos"></div>
+      <button class="calc-btn" onclick="calcularPontos()">Calcular pontos</button>
+    </div>
+  </div>
+
+  <div id="tab-ranking" style="display:none;">
+    <div class="sec-heading"><h2>Classificação</h2></div>
+    <div id="ranking-list"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TELA PALPITE ═══════════════════ -->
+<div id="screen-palpite" class="screen">
+  <button class="back-btn" onclick="goHome()">← Voltar</button>
+
+  <div class="palpite-header">
+    <div class="palpite-avatar" id="pal-avatar"></div>
+    <div>
+      <div class="palpite-user-name" id="pal-name"></div>
+      <div class="palpite-user-sub">Seus palpites de hoje</div>
+    </div>
+  </div>
+
+  <div id="palpite-cards"></div>
+  <button class="save-btn" onclick="salvarPalpites()">💾 Salvar palpites</button>
+</div>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="file-input" accept="image/*" style="display:none">
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBCBIiJz2cGCOYk-OL-6UwD-WSVStAvhzs",
+  authDomain: "primas-da-bola.firebaseapp.com",
+  projectId: "primas-da-bola",
+  storageBucket: "primas-da-bola.firebasestorage.app",
+  messagingSenderId: "251269916606",
+  appId: "1:251269916606:web:7e5ddcdad08b55f8e7fbef"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+
+const PROFILES = [
+  { id: 'lidia',   name: 'Lídia',   init: 'LI' },
+  { id: 'isa',     name: 'Isa',     init: 'IS' },
+  { id: 'marina',  name: 'Marina',  init: 'MA' },
+  { id: 'mariane', name: 'Mariane', init: 'MR' },
+  { id: 'sarah',   name: 'Sarah',   init: 'SA' },
+];
+
+const JOGOS = [
+  {
+    id: 'j1',
+    time1: 'México',
+    flag1: 'MEX',
+    time2: 'África do Sul',
+    flag2: 'RSA',
+    hora: '16:00',
+    data: '11/06'
+  },
+  {
+    id: 'j2',
+    time1: 'Coreia do Sul',
+    flag1: 'KOR',
+    time2: 'República Tcheca',
+    flag2: 'CZE',
+    hora: '23:00',
+    data: '11/06'
+  },
+  {
+    id: 'j3',
+    time1: 'Canadá',
+    flag1: 'CAN',
+    time2: 'Bósnia e Herzegovina',
+    flag2: 'BIH',
+    hora: '16:00',
+    data: '12/06'
+  },
+  {
+    id: 'j4',
+    time1: 'Estados Unidos',
+    flag1: 'USA',
+    time2: 'Paraguai',
+    flag2: 'PAR',
+    hora: '22:00',
+    data: '12/06'
+  }
+];
+
+// ── STATE ────────────────────────────────────────────────
+
+let avatarMap = {};
+let palpitesMap = {};
+let resultadosMap = {};
+let currentUser = null;
+let currentTab = 'jogos';
+let firebaseReady = false;
+
+// ── FIRESTORE LOAD / REALTIME ────────────────────────────
+
+async function carregarDadosIniciais() {
+  try {
+    const [avatarsSnap, palpitesSnap, resultadosSnap] = await Promise.all([
+      getDocs(collection(db, 'avatars')),
+      getDocs(collection(db, 'palpites')),
+      getDocs(collection(db, 'resultados'))
+    ]);
+
+    avatarMap = {};
+    avatarsSnap.forEach(item => {
+      avatarMap[item.id] = item.data().foto;
+    });
+
+    palpitesMap = {};
+    palpitesSnap.forEach(item => {
+      const data = item.data();
+      palpitesMap[item.id] = { g1: Number(data.g1), g2: Number(data.g2) };
+    });
+
+    resultadosMap = {};
+    resultadosSnap.forEach(item => {
+      const data = item.data();
+      resultadosMap[item.id] = { g1: Number(data.g1), g2: Number(data.g2) };
+    });
+
+    firebaseReady = true;
+    renderHome();
+    observarMudancas();
+  } catch (error) {
+    console.error(error);
+    toast('Erro ao conectar no Firebase. Veja se o Firestore foi criado.');
+    renderHome();
+  }
+}
+
+function observarMudancas() {
+  onSnapshot(collection(db, 'avatars'), snapshot => {
+    avatarMap = {};
+    snapshot.forEach(item => {
+      avatarMap[item.id] = item.data().foto;
+    });
+    renderProfiles();
+    if (currentTab === 'ranking') renderRanking();
+  });
+
+  onSnapshot(collection(db, 'palpites'), snapshot => {
+    palpitesMap = {};
+    snapshot.forEach(item => {
+      const data = item.data();
+      palpitesMap[item.id] = { g1: Number(data.g1), g2: Number(data.g2) };
+    });
+    if (currentTab === 'ranking') renderRanking();
+  });
+
+  onSnapshot(collection(db, 'resultados'), snapshot => {
+    resultadosMap = {};
+    snapshot.forEach(item => {
+      const data = item.data();
+      resultadosMap[item.id] = { g1: Number(data.g1), g2: Number(data.g2) };
+    });
+    renderJogos();
+    if (currentTab === 'ranking') renderRanking();
+  });
+}
+
+// ── RENDER HOME ──────────────────────────────────────────
+
+function renderHome() {
+  const hoje = new Date();
+  document.getElementById('hoje-data').textContent =
+    hoje.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+
+  renderProfiles();
+  renderJogos();
+}
+
+function renderProfiles() {
+  const grid = document.getElementById('profiles-grid');
+  grid.innerHTML = '';
+
+  PROFILES.forEach(p => {
+    const hasImg = !!avatarMap[p.id];
+    const btn = document.createElement('button');
+    btn.className = 'profile-btn';
+    btn.innerHTML = `
+      <div class="avatar-wrap">
+        <div class="avatar ${hasImg ? '' : 'c-' + p.id}" id="av-${p.id}">
+          ${hasImg ? `<img src="${avatarMap[p.id]}" alt="${p.name}">` : `<span>${p.init}</span>`}
+        </div>
+        <div class="upload-badge" title="Trocar foto" aria-label="Trocar foto de ${p.name}">📷</div>
+      </div>
+      <span class="profile-name">${p.name}</span>`;
+
+    btn.querySelector('.upload-badge').addEventListener('click', e => {
+      e.stopPropagation();
+      uploadFoto(p.id);
+    });
+
+    btn.addEventListener('click', () => abrirPalpite(p));
+    grid.appendChild(btn);
+  });
+}
+
+function renderJogos() {
+  const list = document.getElementById('jogos-list');
+  list.innerHTML = '';
+
+  JOGOS.forEach(j => {
+    const r = resultadosMap[j.id];
+    const placarHtml = r != null
+      ? `<div style="text-align:center;padding:6px 0 0">
+           <span style="font-size:20px;font-weight:800;color:var(--green)">${r.g1} – ${r.g2}</span>
+           <span style="font-size:11px;color:var(--muted);display:block">resultado oficial</span>
+         </div>`
+      : '';
+
+    list.innerHTML += `
+      <div class="jogo-card">
+        <div class="jogo-time"><span class="jogo-flag">${j.flag1}</span><span class="jogo-time-name">${j.time1}</span></div>
+        <div style="text-align:center">
+          <div class="jogo-vs">×</div>
+          <span class="jogo-hora">${j.hora}</span>
+          <span class="jogo-data">${j.data}</span>
+          ${placarHtml}
+        </div>
+        <div class="jogo-time"><span class="jogo-flag">${j.flag2}</span><span class="jogo-time-name">${j.time2}</span></div>
+      </div>`;
+  });
+
+  renderAdminJogos();
+}
+
+function renderAdminJogos() {
+  const ap = document.getElementById('admin-jogos');
+  if (!ap) return;
+  ap.innerHTML = '';
+
+  JOGOS.forEach(j => {
+    const r = resultadosMap[j.id] || {};
+    ap.innerHTML += `
+      <div class="admin-jogo">
+        <label>${j.flag1} ${j.time1} × ${j.time2} ${j.flag2}</label>
+        <div class="admin-score-row">
+          <input type="number" min="0" max="20" id="r1-${j.id}" value="${r.g1 ?? ''}" placeholder="0">
+          <span>×</span>
+          <input type="number" min="0" max="20" id="r2-${j.id}" value="${r.g2 ?? ''}" placeholder="0">
+        </div>
+      </div>`;
+  });
+}
+
+// ── TABS ─────────────────────────────────────────────────
+
+function showTab(tab) {
+  currentTab = tab;
+  document.getElementById('tab-jogos').style.display   = tab === 'jogos' ? '' : 'none';
+  document.getElementById('tab-ranking').style.display = tab === 'ranking' ? '' : 'none';
+
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0) === (tab === 'jogos'));
+  });
+
+  if (tab === 'ranking') renderRanking();
+}
+
+// ── RANKING ──────────────────────────────────────────────
+
+function getPontos(userId) {
+  let total = 0, certos = 0, cravados = 0;
+
+  JOGOS.forEach(j => {
+    const r = resultadosMap[j.id];
+    const pal = palpitesMap[`${userId}-${j.id}`];
+    if (!r || !pal) return;
+
+    const acertouPlacar = pal.g1 === r.g1 && pal.g2 === r.g2;
+    if (acertouPlacar) {
+      total += 10;
+      cravados++;
+      return;
+    }
+
+    const vencR = r.g1 > r.g2 ? 1 : r.g1 < r.g2 ? 2 : 0;
+    const vencP = pal.g1 > pal.g2 ? 1 : pal.g1 < pal.g2 ? 2 : 0;
+
+    if (vencR === vencP) {
+      total += 5;
+      certos++;
+    }
+  });
+
+  return { total, certos, cravados };
+}
+
+function renderRanking() {
+  const data = PROFILES.map(p => ({ ...p, ...getPontos(p.id) }))
+    .sort((a, b) => b.total - a.total);
+  const medals = ['🥇','🥈','🥉'];
+  const list = document.getElementById('ranking-list');
+  list.innerHTML = '';
+
+  data.forEach((p, i) => {
+    const hasImg = !!avatarMap[p.id];
+    list.innerHTML += `
+      <div class="ranking-item">
+        <span class="rank-pos">${medals[i] || (i+1)}</span>
+        <div class="rank-avatar ${hasImg ? '' : 'c-' + p.id}">
+          ${hasImg ? `<img src="${avatarMap[p.id]}" alt="${p.name}">` : p.init}
+        </div>
+        <div class="rank-info">
+          <div class="rank-name">${p.name}</div>
+          <div class="rank-sub">${p.cravados} placar(es) cravado(s) · ${p.certos} vencedor(es)</div>
+        </div>
+        <span class="rank-pts">${p.total}pts</span>
+      </div>`;
+  });
+
+  if (data.every(p => p.total === 0)) {
+    list.innerHTML += `<p style="text-align:center;color:var(--muted);font-size:14px;padding:20px 0">Lance os resultados para ver a pontuação!</p>`;
+  }
+}
+
+// ── PALPITE ──────────────────────────────────────────────
+
+function abrirPalpite(profile) {
+  currentUser = profile;
+  const hasImg = !!avatarMap[profile.id];
+  const av = document.getElementById('pal-avatar');
+  av.className = `palpite-avatar${hasImg ? '' : ' c-' + profile.id}`;
+  av.innerHTML = hasImg ? `<img src="${avatarMap[profile.id]}" alt="${profile.name}">` : profile.init;
+  document.getElementById('pal-name').textContent = profile.name;
+
+  const cards = document.getElementById('palpite-cards');
+  cards.innerHTML = '';
+
+  JOGOS.forEach(j => {
+    const saved = palpitesMap[`${profile.id}-${j.id}`] || {};
+    const hasSaved = saved.g1 != null;
+    cards.innerHTML += `
+      <div class="palpite-card">
+        <div class="palpite-card-header">
+          <span class="palpite-jogo-info">${j.data}</span>
+          <span class="palpite-jogo-hora">${j.hora}</span>
+        </div>
+        <div class="palpite-times-row">
+          <div class="palpite-time">
+            <span class="palpite-flag">${j.flag1}</span>
+            <span class="palpite-time-name">${j.time1}</span>
+          </div>
+          <div class="palpite-score">
+            <input class="score-input" type="number" min="0" max="20" id="s1-${j.id}" value="${saved.g1 ?? ''}" placeholder="0" inputmode="numeric">
+            <span class="score-x">×</span>
+            <input class="score-input" type="number" min="0" max="20" id="s2-${j.id}" value="${saved.g2 ?? ''}" placeholder="0" inputmode="numeric">
+          </div>
+          <div class="palpite-time">
+            <span class="palpite-flag">${j.flag2}</span>
+            <span class="palpite-time-name">${j.time2}</span>
+          </div>
+        </div>
+        <div class="saved-badge ${hasSaved ? 'show' : ''}" id="badge-${j.id}">
+          ✅ Palpite salvo: ${saved.g1 ?? '?'} × ${saved.g2 ?? '?'}
+        </div>
+      </div>`;
+  });
+
+  document.getElementById('screen-home').classList.remove('active');
+  document.getElementById('screen-palpite').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+async function salvarPalpites() {
+  if (!currentUser) return;
+
+  let salvou = 0;
+  const promessas = [];
+
+  JOGOS.forEach(j => {
+    const v1 = document.getElementById(`s1-${j.id}`)?.value;
+    const v2 = document.getElementById(`s2-${j.id}`)?.value;
+
+    if (v1 !== '' && v2 !== '') {
+      const palpite = {
+        usuario: currentUser.id,
+        usuarioNome: currentUser.name,
+        jogo: j.id,
+        time1: j.time1,
+        time2: j.time2,
+        g1: parseInt(v1, 10),
+        g2: parseInt(v2, 10),
+        atualizadoEm: serverTimestamp()
+      };
+
+      palpitesMap[`${currentUser.id}-${j.id}`] = { g1: palpite.g1, g2: palpite.g2 };
+      promessas.push(setDoc(doc(db, 'palpites', `${currentUser.id}-${j.id}`), palpite));
+
+      const badge = document.getElementById(`badge-${j.id}`);
+      if (badge) {
+        badge.textContent = `✅ Palpite salvo: ${v1} × ${v2}`;
+        badge.classList.add('show');
+      }
+      salvou++;
+    }
+  });
+
+  if (salvou === 0) {
+    toast('Preencha ao menos um palpite antes de salvar');
+    return;
+  }
+
+  try {
+    await Promise.all(promessas);
+    toast(`Palpites da ${currentUser.name} salvos no Firebase! ✅`);
+    setTimeout(goHome, 900);
+  } catch (error) {
+    console.error(error);
+    toast('Erro ao salvar no Firebase. Verifique as regras do Firestore.');
+  }
+}
+
+function goHome() {
+  document.getElementById('screen-palpite').classList.remove('active');
+  document.getElementById('screen-home').classList.add('active');
+  renderProfiles();
+  renderJogos();
+  window.scrollTo(0, 0);
+}
+
+// ── ADMIN ────────────────────────────────────────────────
+
+function toggleAdmin() {
+  document.getElementById('admin-panel').classList.toggle('show');
+}
+
+async function calcularPontos() {
+  const promessas = [];
+  let salvou = 0;
+
+  JOGOS.forEach(j => {
+    const v1 = document.getElementById(`r1-${j.id}`)?.value;
+    const v2 = document.getElementById(`r2-${j.id}`)?.value;
+
+    if (v1 !== '' && v2 !== '') {
+      const resultado = {
+        jogo: j.id,
+        time1: j.time1,
+        time2: j.time2,
+        g1: parseInt(v1, 10),
+        g2: parseInt(v2, 10),
+        atualizadoEm: serverTimestamp()
+      };
+
+      resultadosMap[j.id] = { g1: resultado.g1, g2: resultado.g2 };
+      promessas.push(setDoc(doc(db, 'resultados', j.id), resultado));
+      salvou++;
+    }
+  });
+
+  if (salvou === 0) {
+    toast('Preencha pelo menos um resultado');
+    return;
+  }
+
+  try {
+    await Promise.all(promessas);
+    renderJogos();
+    if (currentTab === 'ranking') renderRanking();
+    toast('Resultados salvos! Pontos calculados 🏆');
+    document.getElementById('admin-panel').classList.remove('show');
+  } catch (error) {
+    console.error(error);
+    toast('Erro ao salvar resultados no Firebase.');
+  }
+}
+
+// ── UPLOAD FOTO ──────────────────────────────────────────
+
+function uploadFoto(userId) {
+  const input = document.getElementById('file-input');
+
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = new Image();
+      img.onload = async () => {
+        const canvas = document.createElement('canvas');
+        const size = 120;
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        const min = Math.min(img.width, img.height);
+        const sx = (img.width - min) / 2;
+        const sy = (img.height - min) / 2;
+        ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+
+        const foto = canvas.toDataURL('image/jpeg', 0.8);
+        avatarMap[userId] = foto;
+        renderProfiles();
+
+        try {
+          await setDoc(doc(db, 'avatars', userId), {
+            foto,
+            atualizadoEm: serverTimestamp()
+          });
+          toast('Foto atualizada no Firebase! 📸');
+        } catch (error) {
+          console.error(error);
+          toast('Erro ao salvar foto no Firebase.');
+        }
+      };
+      img.src = ev.target.result;
+    };
+
+    reader.readAsDataURL(file);
+    input.value = '';
+  };
+
+  input.click();
+}
+
+// ── TOAST ────────────────────────────────────────────────
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// ── EXPÕE FUNÇÕES PARA OS BOTÕES DO HTML ─────────────────
+
+window.showTab = showTab;
+window.salvarPalpites = salvarPalpites;
+window.goHome = goHome;
+window.toggleAdmin = toggleAdmin;
+window.calcularPontos = calcularPontos;
+
+// ── INIT ─────────────────────────────────────────────────
+
+renderHome();
+carregarDadosIniciais();
+</script>
+</body>
+</html>
