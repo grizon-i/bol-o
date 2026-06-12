@@ -1247,53 +1247,62 @@ ${jogoJaComecou(j)
     }
 
     async function salvarPalpites() {
-      if (jogoJaComecou(j)) return;
+  if (!currentUser) return;
 
-      let salvou = 0;
-      const promessas = [];
+  let salvou = 0;
+  const promessas = [];
 
-      JOGOS.forEach(j => {
-        const v1 = document.getElementById(`s1-${j.id}`)?.value;
-        const v2 = document.getElementById(`s2-${j.id}`)?.value;
+  JOGOS.forEach(j => {
+    if (jogoJaComecou(j)) return;
 
-        if (v1 !== '' && v2 !== '') {
-          const palpite = {
-            usuario: currentUser.id,
-            usuarioNome: currentUser.name,
-            jogo: j.id,
-            time1: j.time1,
-            time2: j.time2,
-            g1: parseInt(v1, 10),
-            g2: parseInt(v2, 10),
-            atualizadoEm: serverTimestamp()
-          };
+    const v1 = document.getElementById(`s1-${j.id}`)?.value;
+    const v2 = document.getElementById(`s2-${j.id}`)?.value;
 
-          palpitesMap[`${currentUser.id}-${j.id}`] = { g1: palpite.g1, g2: palpite.g2 };
-          promessas.push(setDoc(doc(db, 'palpites', `${currentUser.id}-${j.id}`), palpite));
+    if (v1 !== '' && v2 !== '') {
+      const palpite = {
+        usuario: currentUser.id,
+        usuarioNome: currentUser.name,
+        jogo: j.id,
+        time1: j.time1,
+        time2: j.time2,
+        g1: parseInt(v1, 10),
+        g2: parseInt(v2, 10),
+        atualizadoEm: serverTimestamp()
+      };
 
-          const badge = document.getElementById(`badge-${j.id}`);
-          if (badge) {
-            badge.textContent = `✅ Palpite salvo: ${v1} × ${v2}`;
-            badge.classList.add('show');
-          }
-          salvou++;
-        }
-      });
+      palpitesMap[`${currentUser.id}-${j.id}`] = {
+        g1: palpite.g1,
+        g2: palpite.g2
+      };
 
-      if (salvou === 0) {
-        toast('Preencha ao menos um palpite antes de salvar');
-        return;
+      promessas.push(
+        setDoc(doc(db, 'palpites', `${currentUser.id}-${j.id}`), palpite)
+      );
+
+      const badge = document.getElementById(`badge-${j.id}`);
+      if (badge) {
+        badge.textContent = `✅ Palpite salvo: ${v1} × ${v2}`;
+        badge.classList.add('show');
       }
 
-      try {
-        await Promise.all(promessas);
-        toast(`Palpites da ${currentUser.name} salvos no Firebase! ✅`);
-        setTimeout(goHome, 900);
-      } catch (error) {
-        console.error(error);
-        toast('Erro ao salvar no Firebase. Verifique as regras do Firestore.');
-      }
+      salvou++;
     }
+  });
+
+  if (salvou === 0) {
+    toast('Preencha ao menos um palpite aberto antes de salvar');
+    return;
+  }
+
+  try {
+    await Promise.all(promessas);
+    toast(`Palpites da ${currentUser.name} salvos no Firebase! ✅`);
+    setTimeout(goHome, 900);
+  } catch (error) {
+    console.error(error);
+    toast('Erro ao salvar no Firebase. Verifique as regras do Firestore.');
+  }
+}
 
     function goHome() {
       document.getElementById('screen-palpite').classList.remove('active');
