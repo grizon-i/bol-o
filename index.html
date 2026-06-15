@@ -490,6 +490,9 @@
       height: 52px;
       border: 2px solid var(--border);
       border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       font-size: 24px;
       font-weight: 800;
@@ -497,7 +500,16 @@
       background: var(--bg);
       outline: none;
       transition: border-color 0.15s;
+      padding: 0;
     }
+
+    .score-input::-webkit-outer-spin-button,
+    .score-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      opacity: 0.5;
+      cursor: pointer;
+    } 
 
     .score-input:focus {
       border-color: var(--green);
@@ -597,7 +609,7 @@
       cursor: pointer;
     }
 
-    .admin-panel {
+    .admin-panel, .cadastro-panel {
       display: none;
       background: white;
       border: 1px solid var(--border);
@@ -606,15 +618,47 @@
       margin-top: 10px;
     }
 
-    .admin-panel.show {
+    .admin-panel.show, .cadastro-panel.show {
       display: block;
     }
 
-    .admin-panel h3 {
+    .admin-panel h3, .cadastro-panel h3 {
       font-size: 14px;
       font-weight: 700;
       margin-bottom: 12px;
       color: var(--text);
+    }
+
+    .cadastro-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .form-group select, .form-group input {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .form-group select:focus, .form-group input:focus {
+      border-color: var(--green);
+      background: white;
     }
 
     .admin-jogo {
@@ -735,13 +779,37 @@
         </div>
       </div>
 
-      <div class="admin-toggle">
+      <div class="admin-toggle" style="display: flex; justify-content: center; gap: 10px;">
         <button class="admin-btn" onclick="toggleAdmin()">⚙ Lançar resultados</button>
+        <button class="admin-btn" onclick="toggleCadastro()">➕ Cadastrar jogo</button>
       </div>
       <div class="admin-panel" id="admin-panel">
         <h3>Resultado oficial dos jogos</h3>
         <div id="admin-jogos"></div>
         <button class="calc-btn" onclick="calcularPontos()">Calcular pontos</button>
+      </div>
+
+      <div class="cadastro-panel" id="cadastro-panel">
+        <h3>➕ Cadastrar novo jogo</h3>
+        <div class="cadastro-form">
+          <div class="form-group">
+            <label>Time 1</label>
+            <select id="cad-time1"></select>
+          </div>
+          <div class="form-group">
+            <label>Time 2</label>
+            <select id="cad-time2"></select>
+          </div>
+          <div class="form-group">
+            <label>Data</label>
+            <input type="date" id="cad-data">
+          </div>
+          <div class="form-group">
+            <label>Hora</label>
+            <input type="time" id="cad-hora">
+          </div>
+          <button class="save-btn" onclick="cadastrarNovoJogo()">Confirmar cadastro</button>
+        </div>
       </div>
     </div>
 
@@ -805,7 +873,7 @@
       { id: 'sarah', name: 'Sarah', init: 'SA' },
     ];
 
-    const JOGOS = [
+    const JOGOS_PADRAO = [
       {
         id: 'j1',
         time1: 'México',
@@ -976,6 +1044,8 @@
       }
     ];
 
+    let JOGOS = [];
+
     const BANDEIRAS = {
       'México': 'mx',
       'África do Sul': 'za',
@@ -1046,10 +1116,11 @@
 
     async function carregarDadosIniciais() {
       try {
-        const [avatarsSnap, palpitesSnap, resultadosSnap] = await Promise.all([
+        const [avatarsSnap, palpitesSnap, resultadosSnap, jogosSnap] = await Promise.all([
           getDocs(collection(db, 'avatars')),
           getDocs(collection(db, 'palpites')),
-          getDocs(collection(db, 'resultados'))
+          getDocs(collection(db, 'resultados')),
+          getDocs(collection(db, 'jogos'))
         ]);
 
         avatarMap = {};
@@ -1069,7 +1140,19 @@
           resultadosMap[item.id] = { g1: Number(data.g1), g2: Number(data.g2) };
         });
 
+        // ── JOGOS (LOAD / MIGRATION) ──
+        if (jogosSnap.empty) {
+          console.log("Migrando jogos padrão para o Firebase...");
+          const migrationPromises = JOGOS_PADRAO.map(j => setDoc(doc(db, 'jogos', j.id), j));
+          await Promise.all(migrationPromises);
+          JOGOS = [...JOGOS_PADRAO];
+        } else {
+          JOGOS = [];
+          jogosSnap.forEach(item => JOGOS.push({ id: item.id, ...item.data() }));
+        }
+
         firebaseReady = true;
+        popularTimes();
         renderHome();
         observarMudancas();
       } catch (error) {
@@ -1106,6 +1189,12 @@
         });
         renderJogos();
         if (currentTab === 'ranking') renderRanking();
+      });
+
+      onSnapshot(collection(db, 'jogos'), snapshot => {
+        JOGOS = [];
+        snapshot.forEach(item => JOGOS.push({ id: item.id, ...item.data() }));
+        renderJogos();
       });
     }
 
@@ -1445,6 +1534,65 @@ ${jogoJaComecou(j)
 
     function toggleAdmin() {
       document.getElementById('admin-panel').classList.toggle('show');
+      document.getElementById('cadastro-panel').classList.remove('show');
+    }
+
+    function toggleCadastro() {
+      document.getElementById('cadastro-panel').classList.toggle('show');
+      document.getElementById('admin-panel').classList.remove('show');
+    }
+
+    function popularTimes() {
+      const s1 = document.getElementById('cad-time1');
+      const s2 = document.getElementById('cad-time2');
+      if (!s1 || !s2) return;
+
+      const times = Object.keys(BANDEIRAS).sort();
+      const options = times.map(t => `<option value="${t}">${t}</option>`).join('');
+      s1.innerHTML = options;
+      s2.innerHTML = options;
+    }
+
+    async function cadastrarNovoJogo() {
+      const t1 = document.getElementById('cad-time1').value;
+      const t2 = document.getElementById('cad-time2').value;
+      const dataRaw = document.getElementById('cad-data').value;
+      const hora = document.getElementById('cad-hora').value;
+
+      if (!t1 || !t2 || !dataRaw || !hora) {
+        toast('Preencha todos os campos!');
+        return;
+      }
+
+      if (t1 === t2) {
+        toast('Os times devem ser diferentes!');
+        return;
+      }
+
+      const [ano, mes, dia] = dataRaw.split('-');
+      const dataFormatada = `${dia}/${mes}/${ano}`;
+      const id = 'j_' + Date.now();
+
+      const novoJogo = {
+        id,
+        time1: t1,
+        time2: t2,
+        data: dataFormatada,
+        hora: hora,
+        criadoEm: serverTimestamp()
+      };
+
+      try {
+        await setDoc(doc(db, 'jogos', id), novoJogo);
+        toast('Jogo cadastrado com sucesso! ⚽');
+        toggleCadastro();
+        // Limpar campos
+        document.getElementById('cad-data').value = '';
+        document.getElementById('cad-hora').value = '';
+      } catch (error) {
+        console.error(error);
+        toast('Erro ao cadastrar jogo.');
+      }
     }
 
     async function calcularPontos() {
@@ -1551,6 +1699,8 @@ ${jogoJaComecou(j)
     window.salvarPalpites = salvarPalpites;
     window.goHome = goHome;
     window.toggleAdmin = toggleAdmin;
+    window.toggleCadastro = toggleCadastro;
+    window.cadastrarNovoJogo = cadastrarNovoJogo;
     window.calcularPontos = calcularPontos;
 
     // ── INIT ─────────────────────────────────────────────────
