@@ -889,6 +889,90 @@
         time2: 'Tunísia',
         hora: '23:00',
         data: '14/06/2026'
+      },
+      {
+        id: 'j13',
+        time1: 'Espanha',
+        time2: 'Cabo Verde',
+        hora: '13:00',
+        data: '15/06/2026'
+      },
+      {
+        id: 'j14',
+        time1: 'Bélgica',
+        time2: 'Egito',
+        hora: '16:00',
+        data: '15/06/2026'
+      },
+      {
+        id: 'j15',
+        time1: 'Arabia Saudita',
+        time2: 'Uruguai',
+        hora: '19:00',
+        data: '15/06/2026'
+      },
+      {
+        id: 'j16',
+        time1: 'Irã',
+        time2: 'Nova Zelândia',
+        hora: '22:00',
+        data: '15/06/2026'
+      },
+      {
+        id: 'j17',
+        time1: 'França',
+        time2: 'Senegal',
+        hora: '16:00',
+        data: '16/06/2026'
+      },
+      {
+        id: 'j18',
+        time1: 'Iraque',
+        time2: 'Noruega',
+        hora: '19:00',
+        data: '16/06/2026'
+      },
+      {
+        id: 'j19',
+        time1: 'Argentina',
+        time2: 'Argélia',
+        hora: '22:00',
+        data: '16/06/2026'
+      },
+      {
+        id: 'j20',
+        time1: 'Áustria',
+        time2: 'Jordânia',
+        hora: '01:00',
+        data: '17/06/2026'
+      },
+      {
+        id: 'j21',
+        time1: 'Portugal',
+        time2: 'R.D. Congo',
+        hora: '14:00',
+        data: '17/06/2026'
+      },
+      {
+        id: 'j22',
+        time1: 'Inglaterra',
+        time2: 'Croácia',
+        hora: '17:00',
+        data: '17/06/2026'
+      },
+      {
+        id: 'j23',
+        time1: 'Gana',
+        time2: 'Panamá',
+        hora: '20:00',
+        data: '17/06/2026'
+      },
+      {
+        id: 'j24',
+        time1: 'Uzbequistão',
+        time2: 'Colômbia',
+        hora: '23:00',
+        data: '17/06/2026'
       }
     ];
 
@@ -917,7 +1001,31 @@
       'Costa do Marfim': 'ci',
       'Equador': 'ec',
       'Suécia': 'se',
-      'Tunísia': 'tn'
+      'Tunísia': 'tn',
+      'Espanha': 'es',
+      'Cabo Verde': 'cv',
+      'Bélgica': 'be',
+      'Egito': 'eg',
+      'Arabia Saudita': 'sa',
+      'Uruguai': 'uy',
+      'Irã': 'ir',
+      'Nova Zelândia': 'nz',
+      'França': 'fr',
+      'Senegal': 'sn',
+      'Iraque': 'iq',
+      'Noruega': 'no',
+      'Argentina': 'ar',
+      'Argélia': 'dz',
+      'Áustria': 'at',
+      'Jordânia': 'jo',
+      'Portugal': 'pt',
+      'R.D. Congo': 'cd',
+      'Inglaterra': 'gb-eng',
+      'Croácia': 'hr',
+      'Gana': 'gh',
+      'Panamá': 'pa',
+      'Uzbequistão': 'uz',
+      'Colômbia': 'co'
     };
 
     function getBandeira(time) {
@@ -1208,7 +1316,16 @@
       const cards = document.getElementById('palpite-cards');
       cards.innerHTML = '';
 
-      JOGOS.forEach(j => {
+      const jogosFiltrados = JOGOS.filter(j => {
+        const [dia, mes, ano] = j.data.split('/');
+        const [hora, minuto] = j.hora.split(':');
+        const fimJogo = new Date(Number(ano), Number(mes) - 1, Number(dia), Number(hora), Number(minuto));
+        fimJogo.setHours(fimJogo.getHours() + 2);
+        const umaHoraDepoisDoFim = new Date(fimJogo.getTime() + 60 * 60 * 1000);
+        return new Date() < umaHoraDepoisDoFim;
+  });
+
+      jogosFiltrados.forEach(j => {
         const saved = palpitesMap[`${profile.id}-${j.id}`] || {};
         const hasSaved = saved.g1 != null;
         cards.innerHTML += `
@@ -1296,7 +1413,7 @@ ${jogoJaComecou(j)
 
   try {
     await Promise.all(promessas);
-    toast(`Palpites da ${currentUser.name} salvos no Firebase! ✅`);
+    toast(`Palpites da ${currentUser.name} salvos!`);
     setTimeout(goHome, 900);
   } catch (error) {
     console.error(error);
@@ -1355,7 +1472,7 @@ ${jogoJaComecou(j)
         document.getElementById('admin-panel').classList.remove('show');
       } catch (error) {
         console.error(error);
-        toast('Erro ao salvar resultados no Firebase.');
+        toast('Erro ao salvar resultados.');
       }
     }
 
@@ -1391,10 +1508,10 @@ ${jogoJaComecou(j)
                 foto,
                 atualizadoEm: serverTimestamp()
               });
-              toast('Foto atualizada no Firebase! 📸');
+              toast('Foto atualizada! 📸');
             } catch (error) {
               console.error(error);
-              toast('Erro ao salvar foto no Firebase.');
+              toast('Erro ao salvar foto.');
             }
           };
           img.src = ev.target.result;
