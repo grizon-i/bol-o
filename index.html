@@ -35,7 +35,6 @@
       min-height: 100vh;
     }
 
-    /* ── SCREENS ── */
     .screen {
       display: none;
       max-width: 480px;
@@ -48,7 +47,6 @@
       display: block;
     }
 
-    /* ── HEADER ── */
     .app-header {
       text-align: center;
       padding: 28px 0 24px;
@@ -73,7 +71,6 @@
       margin-top: 4px;
     }
 
-    /* ── PROFILES ── */
     .profiles-section h2 {
       font-size: 12px;
       font-weight: 600;
@@ -169,7 +166,6 @@
       color: var(--text);
     }
 
-    /* ── TABS ── */
     .tabs {
       display: flex;
       background: white;
@@ -220,7 +216,6 @@
       border-radius: 20px;
     }
 
-    /* ── JOGOS ── */
     .jogo-card {
       background: white;
       border: 1px solid var(--border);
@@ -301,7 +296,6 @@
       color: var(--muted);
     }
 
-    /* ── RANKING ── */
     .ranking-item {
       background: white;
       border: 1px solid var(--border);
@@ -364,8 +358,7 @@
       font-weight: 800;
       color: var(--green);
     }
-
-    /* ── PALPITE SCREEN ── */
+    
     .back-btn {
       display: inline-flex;
       align-items: center;
@@ -557,7 +550,6 @@
       transform: scale(0.98);
     }
 
-    /* ── TOAST ── */
     .toast {
       position: fixed;
       bottom: 24px;
@@ -581,7 +573,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* ── RESULT ADMIN ── */
     .admin-toggle {
       text-align: center;
       margin-top: 24px;
@@ -669,7 +660,6 @@
       margin-top: 8px;
     }
 
-    /* Avatar colors */
     .c-lidia {
       background: #fce7f3;
       color: #9d174d;
@@ -1196,19 +1186,19 @@
       renderAdminJogos();
     }
 
- function renderAdminJogos() {
-  const ap = document.getElementById('admin-jogos');
-  if (!ap) return;
+    function renderAdminJogos() {
+      const ap = document.getElementById('admin-jogos');
+      if (!ap) return;
 
-  ap.innerHTML = '';
+      ap.innerHTML = '';
 
-  const hoje = new Date().toLocaleDateString('pt-BR');
-  const jogosHoje = JOGOS.filter(j => j.data === hoje);
+      const hoje = new Date().toLocaleDateString('pt-BR');
+      const jogosHoje = JOGOS.filter(j => j.data === hoje);
 
-  jogosHoje.forEach(j => {
-    const r = resultadosMap[j.id] || {};
+      jogosHoje.forEach(j => {
+        const r = resultadosMap[j.id] || {};
 
-    ap.innerHTML += `
+        ap.innerHTML += `
       <div class="admin-jogo">
         <label>${getBandeira(j.time1)} ${j.time1} × ${j.time2} ${getBandeira(j.time2)}</label>
         <div class="admin-score-row">
@@ -1217,15 +1207,15 @@
           <input type="number" min="0" max="20" id="r2-${j.id}" value="${r.g2 ?? ''}" placeholder="0">
         </div>
       </div>`;
-  });
+      });
 
-  if (jogosHoje.length === 0) {
-    ap.innerHTML = `
+      if (jogosHoje.length === 0) {
+        ap.innerHTML = `
       <p style="text-align:center;color:var(--muted);font-size:14px;padding:12px 0">
         Nenhum jogo cadastrado para hoje.
       </p>`;
-  }
-}
+      }
+    }
 
     // ── TABS ─────────────────────────────────────────────────
 
@@ -1335,7 +1325,7 @@
         fimJogo.setHours(fimJogo.getHours() + 2);
         const umaHoraDepoisDoFim = new Date(fimJogo.getTime() + 60 * 60 * 1000);
         return new Date() < umaHoraDepoisDoFim;
-  });
+      });
 
       jogosFiltrados.forEach(j => {
         const saved = palpitesMap[`${profile.id}-${j.id}`] || {};
@@ -1376,62 +1366,62 @@ ${jogoJaComecou(j)
     }
 
     async function salvarPalpites() {
-  if (!currentUser) return;
+      if (!currentUser) return;
 
-  let salvou = 0;
-  const promessas = [];
+      let salvou = 0;
+      const promessas = [];
 
-  JOGOS.forEach(j => {
-    if (jogoJaComecou(j)) return;
+      JOGOS.forEach(j => {
+        if (jogoJaComecou(j)) return;
 
-    const v1 = document.getElementById(`s1-${j.id}`)?.value;
-    const v2 = document.getElementById(`s2-${j.id}`)?.value;
+        const v1 = document.getElementById(`s1-${j.id}`)?.value;
+        const v2 = document.getElementById(`s2-${j.id}`)?.value;
 
-    if (v1 !== '' && v2 !== '') {
-      const palpite = {
-        usuario: currentUser.id,
-        usuarioNome: currentUser.name,
-        jogo: j.id,
-        time1: j.time1,
-        time2: j.time2,
-        g1: parseInt(v1, 10),
-        g2: parseInt(v2, 10),
-        atualizadoEm: serverTimestamp()
-      };
+        if (v1 !== '' && v2 !== '') {
+          const palpite = {
+            usuario: currentUser.id,
+            usuarioNome: currentUser.name,
+            jogo: j.id,
+            time1: j.time1,
+            time2: j.time2,
+            g1: parseInt(v1, 10),
+            g2: parseInt(v2, 10),
+            atualizadoEm: serverTimestamp()
+          };
 
-      palpitesMap[`${currentUser.id}-${j.id}`] = {
-        g1: palpite.g1,
-        g2: palpite.g2
-      };
+          palpitesMap[`${currentUser.id}-${j.id}`] = {
+            g1: palpite.g1,
+            g2: palpite.g2
+          };
 
-      promessas.push(
-        setDoc(doc(db, 'palpites', `${currentUser.id}-${j.id}`), palpite)
-      );
+          promessas.push(
+            setDoc(doc(db, 'palpites', `${currentUser.id}-${j.id}`), palpite)
+          );
 
-      const badge = document.getElementById(`badge-${j.id}`);
-      if (badge) {
-        badge.textContent = `✅ Palpite salvo: ${v1} × ${v2}`;
-        badge.classList.add('show');
+          const badge = document.getElementById(`badge-${j.id}`);
+          if (badge) {
+            badge.textContent = `✅ Palpite salvo: ${v1} × ${v2}`;
+            badge.classList.add('show');
+          }
+
+          salvou++;
+        }
+      });
+
+      if (salvou === 0) {
+        toast('Preencha ao menos um palpite aberto antes de salvar');
+        return;
       }
 
-      salvou++;
+      try {
+        await Promise.all(promessas);
+        toast(`Palpites da ${currentUser.name} salvos!`);
+        setTimeout(goHome, 900);
+      } catch (error) {
+        console.error(error);
+        toast('Erro ao salvar no Firebase. Verifique as regras do Firestore.');
+      }
     }
-  });
-
-  if (salvou === 0) {
-    toast('Preencha ao menos um palpite aberto antes de salvar');
-    return;
-  }
-
-  try {
-    await Promise.all(promessas);
-    toast(`Palpites da ${currentUser.name} salvos!`);
-    setTimeout(goHome, 900);
-  } catch (error) {
-    console.error(error);
-    toast('Erro ao salvar no Firebase. Verifique as regras do Firestore.');
-  }
-}
 
     function goHome() {
       document.getElementById('screen-palpite').classList.remove('active');
@@ -1452,10 +1442,22 @@ ${jogoJaComecou(j)
       let salvou = 0;
 
       JOGOS.forEach(j => {
-        const v1 = document.getElementById(`r1-${j.id}`)?.value;
-        const v2 = document.getElementById(`r2-${j.id}`)?.value;
 
-        if (v1 !== '' && v2 !== '') {
+        const input1 = document.getElementById(`r1-${j.id}`);
+        const input2 = document.getElementById(`r2-${j.id}`);
+
+        if (!input1 || !input2) return;
+
+        const v1 = input1.value;
+        const v2 = input2.value;
+
+        if (
+          v1 !== '' &&
+          v2 !== '' &&
+          !isNaN(Number(v1)) &&
+          !isNaN(Number(v2))
+        ) {
+
           const resultado = {
             jogo: j.id,
             time1: j.time1,
@@ -1465,8 +1467,15 @@ ${jogoJaComecou(j)
             atualizadoEm: serverTimestamp()
           };
 
-          resultadosMap[j.id] = { g1: resultado.g1, g2: resultado.g2 };
-          promessas.push(setDoc(doc(db, 'resultados', j.id), resultado));
+          resultadosMap[j.id] = {
+            g1: resultado.g1,
+            g2: resultado.g2
+          };
+
+          promessas.push(
+            setDoc(doc(db, 'resultados', j.id), resultado)
+          );
+
           salvou++;
         }
       });
@@ -1535,7 +1544,6 @@ ${jogoJaComecou(j)
       input.click();
     }
 
-    // ── TOAST ────────────────────────────────────────────────
 
     function toast(msg) {
       const el = document.getElementById('toast');
@@ -1549,8 +1557,6 @@ ${jogoJaComecou(j)
     window.goHome = goHome;
     window.toggleAdmin = toggleAdmin;
     window.calcularPontos = calcularPontos;
-
-    // ── INIT ─────────────────────────────────────────────────
 
     renderHome();
     carregarDadosIniciais();
