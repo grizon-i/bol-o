@@ -193,7 +193,6 @@
       color: white;
     }
 
-    /* ── SECTION HEADING ── */
     .sec-heading {
       display: flex;
       align-items: center;
@@ -358,7 +357,7 @@
       font-weight: 800;
       color: var(--green);
     }
-    
+
     .back-btn {
       display: inline-flex;
       align-items: center;
@@ -449,15 +448,14 @@
     }
 
     .palpite-times-row {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 130px 1fr;
       align-items: center;
-      justify-content: space-between;
       gap: 8px;
     }
 
     .palpite-time {
       text-align: center;
-      flex: 1;
     }
 
     .palpite-flag {
@@ -474,8 +472,8 @@
     .palpite-score {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
-      flex-shrink: 0;
     }
 
     .score-input {
@@ -963,6 +961,53 @@
         time2: 'Colômbia',
         hora: '23:00',
         data: '17/06/2026'
+      },
+      { id: 'j25',
+        time1: 'República Tcheca',
+        time2: 'África do Sul',
+        hora: '13:00',
+        data: '18/06/2026'
+      },
+      {
+        id: 'j26',
+        time1: 'Suíça',
+        time2: 'Bósnia e Herzegovina',
+        hora: '16:00',
+        data: '18/06/2026'
+      },
+      {
+        id: 'j27',
+        time1: 'Canadá',
+        time2: 'Catar',
+        hora: '19:00',
+        data: '18/06/2026'
+      },
+      {
+        id: 'j28',
+        time1: 'México',
+        time2: 'Coreia do Sul',
+        hora: '22:00',
+        data: '18/06/2026'
+      },
+      {
+        id: 'j29',
+        time1: 'Estados Unidos',
+        time2: 'Austrália',
+        hora: '16:00',
+        data: '19/06/2026'
+      },
+      {
+        id: 'j30',
+        time1: 'Escócia',
+        time2: 'Marrocos',
+        hora: '19:00',
+        data: '19/06/2026'
+      },{
+        id: 'j31',
+        time1: 'Brasil',
+        time2: 'Haiti',
+        hora: '21:30',
+        data: '19/06/2026'
       }
     ];
 
@@ -1023,7 +1068,6 @@
       return code ? `<span class="fi fi-${code}"></span>` : '🏳️';
     }
 
-    // ── STATE ────────────────────────────────────────────────
 
     let avatarMap = {};
     let palpitesMap = {};
@@ -1032,7 +1076,6 @@
     let currentTab = 'jogos';
     let firebaseReady = false;
 
-    // ── FIRESTORE LOAD / REALTIME ────────────────────────────
 
     async function carregarDadosIniciais() {
       try {
@@ -1099,7 +1142,6 @@
       });
     }
 
-    // ── RENDER HOME ──────────────────────────────────────────
 
     function renderHome() {
       const hoje = new Date();
@@ -1431,7 +1473,6 @@ ${jogoJaComecou(j)
       window.scrollTo(0, 0);
     }
 
-    // ── ADMIN ────────────────────────────────────────────────
 
     function toggleAdmin() {
       document.getElementById('admin-panel').classList.toggle('show');
