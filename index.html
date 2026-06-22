@@ -488,6 +488,17 @@
       background: var(--bg);
       outline: none;
       transition: border-color 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-input::-webkit-outer-spin-button,
+    .score-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      opacity: 0.5;
+      cursor: pointer;
     }
 
     .score-input:focus {
