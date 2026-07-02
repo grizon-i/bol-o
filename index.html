@@ -227,6 +227,20 @@
       gap: 8px;
     }
 
+    .jogo-fase {
+      display: inline-block;
+      padding: 3px 12px;
+      margin-bottom: 8px;
+      border: 1px solid #b7e6c2;
+      border-radius: 20px;
+      background: #f5fff7;
+      color: #17883d;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
     .jogo-time {
       text-align: center;
       flex: 1;
@@ -698,7 +712,6 @@
 
 <body>
 
-  <!-- ═══════════════════ TELA HOME ═══════════════════ -->
   <div id="screen-home" class="screen active">
     <div class="app-header">
       <span class="ball">⚽</span>
@@ -752,7 +765,6 @@
     </div>
   </div>
 
-  <!-- ═══════════════════ TELA PALPITE ═══════════════════ -->
   <div id="screen-palpite" class="screen">
     <button class="back-btn" onclick="goHome()">← Voltar</button>
 
@@ -973,8 +985,7 @@
         hora: '23:00',
         data: '17/06/2026'
       },
-      { 
-        id: 'j25',
+      { id: 'j25',
         time1: 'República Tcheca',
         time2: 'África do Sul',
         hora: '13:00',
@@ -1014,8 +1025,7 @@
         time2: 'Marrocos',
         hora: '19:00',
         data: '19/06/2026'
-      },
-      {
+      },{
         id: 'j31',
         time1: 'Brasil',
         time2: 'Haiti',
@@ -1106,8 +1116,7 @@
         hora: '21:00',
         data: '22/06/2026'
       },
-      { 
-        id: 'j44',
+      { id: 'j44',
         time1: 'Jordânia',
         time2: 'Argélia',
         hora: '00:00',
@@ -1384,42 +1393,88 @@
         time1: 'Espanha',
         time2: 'Áustria',
         hora: '16:00',
-        data: '02/07/2026'
+        data: '02/07/2026',
+        fase: '16 avos de final'
       },
       {
         id: 'j84',
         time1: 'Portugal',
         time2: 'Croácia',
         hora: '20:00',
-        data: '02/07/2026'
+        data: '02/07/2026',
+        fase: '16 avos de final'
       },
       {
         id: 'j85',
         time1: 'Suíça',
         time2: 'Argélia',
         hora: '00:00',
-        data: '03/07/2026'
+        data: '03/07/2026',
+        fase: '16 avos de final'
       },
       {
         id: 'j86',
         time1: 'Austrália',
         time2: 'Egito',
         hora: '15:00',
-        data: '03/07/2026'
+        data: '03/07/2026',
+        fase: '16 avos de final'
       },
       {
         id: 'j87',
         time1: 'Argentina',
         time2: 'Cabo Verde',
         hora: '19:00',
-        data: '03/07/2026'
+        data: '03/07/2026',
+        fase: '16 avos de final'
       },
       {
         id: 'j88',
         time1: 'Colômbia',
         time2: 'Gana',
         hora: '22:30',
-        data: '03/07/2026'
+        data: '03/07/2026',
+        fase: '16 avos de final'
+      },
+      {
+        id: 'j89',
+        time1: 'Canadá',
+        time2: 'Marrocos',
+        hora: '14:00',
+        data: '04/07/2026',
+        fase: 'Oitavas de final'
+      },
+      {
+        id: 'j90',
+        time1: 'Paraguai',
+        time2: 'França',
+        hora: '18:00',
+        data: '04/07/2026',
+        fase: 'Oitavas de final'
+      },
+      {
+        id: 'j91',
+        time1: 'Brasil',
+        time2: 'Noroega',
+        hora: '17:00',
+        data: '05/07/2026',
+        fase: 'Oitavas de final'
+      },
+      {
+        id: 'j92',
+        time1: 'México',
+        time2: 'Inglaterra',
+        hora: '21:00',
+        data: '05/07/2026',
+        fase: 'Oitavas de final'
+      },
+      {
+        id: 'j93',
+        time1: 'Estados Unidos',
+        time2: 'Bélgica',
+        hora: '21:00',
+        data: '06/07/2026',
+        fase: 'Oitavas de final'
       }
     ];
 
@@ -1617,6 +1672,7 @@
         </div>
 
         <div style="text-align:center">
+          ${j.fase ? `<div class="jogo-fase">${j.fase}</div>` : ''}
           <div class="jogo-vs">×</div>
           <span class="jogo-hora">${j.hora}</span>
           <span class="jogo-data">${j.data}</span>
@@ -1671,7 +1727,6 @@
       }
     }
 
-    // ── TABS ─────────────────────────────────────────────────
 
     function showTab(tab) {
       currentTab = tab;
@@ -1685,7 +1740,6 @@
       if (tab === 'ranking') renderRanking();
     }
 
-    // ── RANKING ──────────────────────────────────────────────
 
     function getPontos(userId) {
       let total = 0, certos = 0, cravados = 0;
@@ -1742,7 +1796,6 @@
       }
     }
 
-    // ── PALPITE ──────────────────────────────────────────────
 
     function jogoJaComecou(jogo) {
       const [dia, mes, ano] = jogo.data.split('/');
@@ -1996,7 +2049,6 @@ ${jogoJaComecou(j)
 
       input.click();
     }
-
 
     function toast(msg) {
       const el = document.getElementById('toast');
