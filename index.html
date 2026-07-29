@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primas da Bola ⚽</title>
+  <link rel="stylesheet" href="style.css"> 
+
+</head>
+
+<body>
+    <script src="jogos.js"></script>
+    <script src="escudos.js"></script>
+    <script src="perfis.js"></script>
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="script.js"></script>
+    
+    
+    <div id="screen-home" class="screen active">
+  <header class="app-header">
+    <div class="header-content">
+      <h1>PRIMAS DA BOLA</h1>
+      <p>Bolão de Futebol</p>
+    </div>
+    <div class="trophy">🏆</div>
+  </header>
+
+    <div class="profiles-section">
+      <h2>Escolha seu perfil</h2>
+      <div class="profiles-grid" id="profiles-grid"></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('jogos')">🗓 Jogos do dia</button>
+      <button class="tab" onclick="showTab('ranking')">🏆 Placar</button>
+    </div>
+
+    <div id="tab-jogos">
+      <div class="sec-heading">
+        <h2>Jogos de hoje</h2>
+        <span class="date-badge" id="hoje-data"></span>
+      </div>
+      <div id="jogos-list"></div>
+
+      <div class="pts-info">
+        <div class="pts-badge">
+          <span class="pts-num">5pts</span>
+          <span class="pts-label">Acerta o vencedor (ou empate)</span>
+        </div>
+        <div class="pts-badge">
+          <span class="pts-num">10pts</span>
+          <span class="pts-label">Crava o placar exato</span>
+        </div>
+      </div>
+
+      <div class="admin-toggle">
+        <button class="admin-btn" onclick="toggleAdmin()">⚙ Lançar resultados</button>
+      </div>
+      <div class="admin-panel" id="admin-panel">
+        <h3>Resultado oficial dos jogos</h3>
+        <div id="admin-jogos"></div>
+        <button class="calc-btn" onclick="calcularPontos()">Calcular pontos</button>
+      </div>
+    </div>
+
+    <div id="tab-ranking" style="display:none;">
+      <div class="sec-heading">
+        <h2>Classificação</h2>
+      </div>
+      <div id="ranking-list"></div>
+    </div>
+  </div>
+
+  <div id="screen-palpite" class="screen">
+    <button class="back-btn" onclick="goHome()">← Voltar</button>
+
+    <div class="palpite-header">
+      <div class="palpite-avatar" id="pal-avatar"></div>
+      <div>
+        <div class="palpite-user-name" id="pal-name"></div>
+        <div class="palpite-user-sub">Seus palpites de hoje</div>
+      </div>
+    </div>
+
+    <div id="palpite-cards"></div>
+    <button class="save-btn" onclick="salvarPalpites()">Salvar palpites</button>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <input type="file" id="file-input" accept="image/*" style="display:none">
+
+</body>
+</html>
