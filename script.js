@@ -97,14 +97,18 @@ function getEscudo(time) {
         const hasImg = !!avatarMap[p.id];
         const btn = document.createElement('button');
         btn.className = 'profile-btn';
-        btn.innerHTML = `
-      <div class="avatar-wrap">
-        <div class="avatar ${hasImg ? '' : 'c-' + p.id}" id="av-${p.id}">
-          ${hasImg ? `<img src="${avatarMap[p.id]}" alt="${p.name}">` : `<span>${p.init}</span>`}
-        </div>
-        <div class="upload-badge" title="Trocar foto" aria-label="Trocar foto de ${p.name}">📷</div>
-      </div>
-      <span class="profile-name">${p.name}</span>`;
+       btn.innerHTML = `
+       <div class="avatar-wrap">
+       <div class="avatar ${hasImg ? '' : 'c-' + p.id}" id="av-${p.id}">
+       ${hasImg ? `<img src="${avatarMap[p.id]}" alt="${p.name}">` : `<span>${p.init}</span>`}
+       </div>
+
+       <div class="upload-badge" title="Trocar foto" aria-label="Trocar foto de ${p.name}">
+        <img src="img/bandeira.svg" alt="Trocar foto">
+       </div>
+       </div>
+
+       <span class="profile-name">${p.name}</span>`;
 
         btn.querySelector('.upload-badge').addEventListener('click', e => {
           e.stopPropagation();
