@@ -46,26 +46,23 @@
       padding: 24px 16px;
       background: var(--primary-gradient);
       border-radius: var(--radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
       margin-bottom: 24px;
+      position: relative; 
     }
 
     .app-header .header-content {
       display: flex;
       flex-direction: column;
       align-items: center;
+      transform: translateX(-20px);
     }
-
 
     .app-header h1 {
       font-size: 26px;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: -0.5px;
-    }
+    } 
 
     .app-header p {
       font-size: 13px;
@@ -74,11 +71,13 @@
       opacity: 0.95;
       margin-top: 6px;
       letter-spacing: 0.5px;
-    }
+   }
 
     .app-header .trophy {
-      display: inline-block;
-      vertical-align: middle;
+      position: absolute;
+      right: 60px;          
+      top: 50%;             
+      transform: translateY(-50%);
     }
 
     .app-header .trophy img {
@@ -86,14 +85,23 @@
       height: 44px;
       display: block;
       filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); 
-      animation: bounce 2s infinite ease-in-out;           
-      margin-left: 20px;
+      animation: bounce 2s infinite ease-in-out; 
     }
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
     }
+
+    @media (max-width: 480px) {
+     .app-header .trophy {
+        right: 12px;        
+      }
+     .app-header .trophy img {
+        width: 36px;        
+        height: 36px;
+     }
+   }
 
     .profiles-section h2 {
       font-size: 12px;
