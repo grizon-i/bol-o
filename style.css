@@ -87,7 +87,7 @@
       display: block;
       filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); 
       animation: bounce 2s infinite ease-in-out;           
-      margin-left: 25px;
+      margin-left: 20px;
     }
 
     @keyframes bounce {
