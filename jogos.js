@@ -110,5 +110,69 @@ const JOGOS = [
         hora: '21:00',
         data: '03/08/2026',
         fase: 'Copa do Brasil - Oitavas de Final'
+      },
+      {
+        id: 'j15',
+        time1: 'Juventude',
+        time2: 'Atlético-MG',
+        hora: '19:30',
+        data: '04/08/2026',
+        fase: 'Copa do Brasil - Oitavas de Final'
+      },
+      {
+        id: 'j16',
+        time1: 'Remo',
+        time2: 'Santos',
+        hora: '21:30',
+        data: '04/08/2026',
+        fase: 'Copa do Brasil - Oitavas de Final'
+      },
+      {
+        id: 'j17',
+        time1: 'Cruzeiro',
+        time2: 'Chapecoense',
+        hora: '19:00',
+        data: '05/08/2026',
+        fase: 'Copa do Brasil - Oitavas de Final'
+      },
+      {
+        id: 'j18',
+        time1: 'Grêmio',
+        time2: 'Mirassol',
+        hora: '19:30',
+        data: '05/08/2026',
+        fase: 'Copa do Brasil - Oitavas de Final'
+      },
+      {
+        id: 'j19',
+        time1: 'Fluminense',
+        time2: 'Vasco',
+        hora: '21:30',
+        data: '05/08/2026',
+        fase: 'Copa do Brasil - Oitavas de Final'
+      },
+      {
+        id: 'j20',
+        time1: 'Fortaleza',
+        time2: 'Palmeiras',
+        hora: '21:30',
+        data: '05/08/2026',
+        fase: 'Copa do Brasil - Oitavas de Final'
+      },
+      {
+        id: 'j21',
+        time1: 'Corinthians',
+        time2: 'Internacional',
+        hora: '20:00',
+        data: '06/08/2026',
+        fase: 'Copa do Brasil - Oitavas de Final'
+      },
+      {
+        id: 'j22',
+        time1: 'Vitória',
+        time2: 'Athletico-PR',
+        hora: '20:00',
+        data: '06/08/2026',
+        fase: 'Copa do Brasil - Oitavas de Final'
       }
     ];

@@ -6,10 +6,10 @@
       --lesbian-magenta: #a30062;
       --primary: var(--lesbian-magenta);
       --primary-gradient: linear-gradient(115deg, var(--lesbian-dark-orange) 0%, var(--lesbian-orange) 45%, var(--lesbian-magenta) 100%);
-      --bg: #fff8f6;           
+      --bg: #fff8f6;
       --surface: #ffffff;
       --border: #fce7f3;
-      --text: #2d0c1e;          
+      --text: #2d0c1e;
       --muted: #8c6b7d;
       --radius: 14px;
       --radius-sm: 8px;
@@ -34,8 +34,8 @@
       margin: 0 auto;
       padding: 20px 16px 40px;
       min-height: 100vh;
-   }
-    
+    }
+
 
     .screen.active {
       display: block;
@@ -47,7 +47,7 @@
       background: var(--primary-gradient);
       border-radius: var(--radius);
       margin-bottom: 24px;
-      position: relative; 
+      position: relative;
     }
 
     .app-header .header-content {
@@ -62,7 +62,7 @@
       font-weight: 700;
       color: #ffffff;
       letter-spacing: -0.5px;
-    } 
+    }
 
     .app-header p {
       font-size: 13px;
@@ -71,37 +71,45 @@
       opacity: 0.95;
       margin-top: 6px;
       letter-spacing: 0.5px;
-   }
+    }
 
     .app-header .trophy {
       position: absolute;
-      right: 60px;          
-      top: 50%;             
+      right: 60px;
+      top: 50%;
       transform: translateY(-50%);
     }
 
     .app-header .trophy img {
-      width: 44px; 
+      width: 44px;
       height: 44px;
       display: block;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); 
-      animation: bounce 2s infinite ease-in-out; 
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+      animation: bounce 2s infinite ease-in-out;
     }
 
     @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
     }
 
     @media (max-width: 480px) {
-     .app-header .trophy {
-        right: 12px;        
+      .app-header .trophy {
+        right: 12px;
       }
-     .app-header .trophy img {
-        width: 36px;        
+
+      .app-header .trophy img {
+        width: 36px;
         height: 36px;
-     }
-   }
+      }
+    }
 
     .profiles-section h2 {
       font-size: 12px;
@@ -254,15 +262,15 @@
     .jogo-card {
       background: white;
       border: 1px solid var(--border);
-      border-bottom: 4px solid var(--lesbian-magenta); 
+      border-bottom: 4px solid var(--lesbian-magenta);
       border-radius: var(--radius);
-      padding:14px 16px;
+      padding: 14px 16px;
       margin-bottom: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
 
     .jogo-fase {
@@ -520,12 +528,12 @@
 
     .jogo-escudo img,
     .palpite-escudo img {
-      width: 36px;            
-      height: 36px;           
-      object-fit: contain;    
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
       display: block;
-      margin: 0 auto 6px auto; 
-   }
+      margin: 0 auto 6px auto;
+    }
 
     .palpite-time-name {
       font-size: 12px;
@@ -631,7 +639,7 @@
       transform: scale(0.98);
     }
 
-    
+
     .toast {
       position: fixed;
       bottom: 24px;
@@ -655,7 +663,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    
+
     .admin-toggle {
       text-align: center;
       margin-top: 24px;
@@ -769,13 +777,13 @@
     }
 
     .escudo-time {
-     width: 36px;
-     height: 36px;
-     object-fit: contain;
-     display: inline-block;
-     vertical-align: middle;
-     margin: 0 4px;
-   }
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 4px;
+    }
 
     .upload-badge {
       position: absolute;
@@ -789,7 +797,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;   
+      overflow: hidden;
       padding: 0;
     }
 
@@ -800,9 +808,26 @@
       display: block;
     }
 
-    .titulo-primas  {
+    .titulo-primas {
       font-family: "Boldonse", system-ui;
       font-weight: 700;
       font-style: normal;
     }
 
+    .btn-mostrar-jogos {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #ff5b2e, #b3006d);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn-mostrar-jogos:hover {
+      transform: scale(1.02);
+    }
