@@ -52,8 +52,10 @@ async function carregarDadosIniciais() {
 }
 
 function toggleMostrarJogos() {
+  const scrollAtual = window.scrollY;
   quantidadeJogos += 5;
   abrirPalpite(currentUser);
+  window.scrollTo(0, scrollAtual);
 }
 
 window.toggleMostrarJogos = toggleMostrarJogos;
@@ -297,7 +299,7 @@ function jogoJaComecou(jogo) {
   return agora >= dataHoraJogo;
 }
 
-function abrirPalpite(profile) {
+function abrirPalpite(profile, scrollTop= true) {
   if (currentUser?.id !== profile.id) {
     quantidadeJogos = 5;
   }
@@ -405,7 +407,9 @@ function abrirPalpite(profile) {
   document.getElementById('screen-home').classList.remove('active');
   document.getElementById('screen-palpite').classList.add('active');
 
-  window.scrollTo(0, 0);
+  if (scrollTop) {
+    window.scrollTo(0, 0);
+  }
 }
 
 async function salvarPalpites() {
@@ -417,8 +421,12 @@ async function salvarPalpites() {
   JOGOS.forEach(j => {
     if (jogoJaComecou(j)) return;
 
-    const v1 = document.getElementById(`s1-${j.id}`)?.value;
-    const v2 = document.getElementById(`s2-${j.id}`)?.value;
+    const input1 = document.getElementById(`s1-${j.id}`);
+    const input2 = document.getElementById(`s2-${j.id}`);
+    if (!input1 || !input2) return;
+
+    const v1 = input1.value;
+    const v2 = input2.value;
 
     if (v1 !== '' && v2 !== '') {
       const palpite = {

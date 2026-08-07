@@ -174,5 +174,149 @@ const JOGOS = [
         hora: '20:00',
         data: '06/08/2026',
         fase: 'Copa do Brasil - Oitavas de Final'
+      },
+      {
+        id: 'j23',
+        time1: 'Grêmio',
+        time2: 'São Paulo',
+        hora: '16:00',
+        data: '08/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j24',
+        time1: 'Remo',
+        time2: 'Atlético-MG',
+        hora: '18:30',
+        data: '08/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j25',
+        time1: 'Coritiba',
+        time2: 'Chapecoense',
+        hora: '20:30',
+        data: '08/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j26',
+        time1: 'Botafogo',
+        time2: 'Fluminense',
+        hora: '21:00',
+        data: '08/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j27',
+        time1: 'Cruzeiro',
+        time2: 'Mirassol',
+        hora: '11:00',
+        data: '09/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j28',
+        time1: 'Bahia',
+        time2: 'Vasco',
+        hora: '16:00',
+        data: '09/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j29',
+        time1: 'Palmeiras',
+        time2: 'Internacional',
+        hora: '16:00',
+        data: '09/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j30',
+        time1: 'RB Bragantino',
+        time2: 'Corinthians',
+        hora: '18:30',
+        data: '09/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j31',
+        time1: 'Santos',
+        time2: 'Athletico-PR',
+        hora: '18:30',
+        data: '09/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j32',
+        time1: 'Flamengo',
+        time2: 'Vitória',
+        hora: '19:30',
+        data: '09/08/2026',
+        fase: 'Brasileirão - Rodada 22'
+      },
+      {
+        id: 'j33',
+        time1: 'Fluminense',
+        time2: 'Ind. Rivadavia',
+        hora: '19:00',
+        data: '11/08/2026',
+        fase: 'Libertadores - Oitavas de Final'
+      },
+      {
+        id: 'j34',
+        time1: 'Estudiantes',
+        time2: 'Uni. Católica',
+        hora: '21:30',
+        data: '11/08/2026',
+        fase: 'Libertadores - Oitavas de Final'
+      },
+      {
+        id: 'j35',
+        time1: 'Tolima',
+        time2: 'Ind. del Valle',
+        hora: '21:30',
+        data: '11/08/2026',
+        fase: 'Libertadores - Oitavas de Final'
+      },
+      {
+        id: 'j36',
+        time1: 'Palmeiras',
+        time2: 'Cerro Porteno',
+        hora: '19:00',
+        data: '12/08/2026',
+        fase: 'Libertadores - Oitavas de Final'
+      },
+      {
+        id: 'j37',
+        time1: 'Platense',
+        time2: 'Coquimbo Unido',
+        hora: '19:00',
+        data: '12/08/2026',
+        fase: 'Libertadores - Oitavas de Final'
+      },
+      {
+        id: 'j38',
+        time1: 'Cruzeiro',
+        time2: 'Flamengo',
+        hora: '21:30',
+        data: '12/08/2026',
+        fase: 'Libertadores - Oitavas de Final'
+      },
+      {
+        id: 'j39',
+        time1: 'Mirassol',
+        time2: 'LDU',
+        hora: '19:00',
+        data: '13/08/2026',
+        fase: 'Libertadores - Oitavas de Final'
+      },
+      {
+        id: 'j40',
+        time1: 'Rosario Central',
+        time2: 'Corinthians',
+        hora: '21:30',
+        data: '13/08/2026',
+        fase: 'Libertadores - Oitavas de Final'
       }
     ];
