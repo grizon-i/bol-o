@@ -1,4 +1,4 @@
-    :root {
+:root {
       --lesbian-dark-orange: #d52d00;
       --lesbian-orange: #ff9a56;
       --lesbian-white: #ffffff;
@@ -516,18 +516,20 @@
 
     .palpite-time {
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 4px;
     }
 
     .palpite-escudo {
-      width: 32px;
-      height: 32px;
-      object-fit: contain;
-      display: inline-block;
-      vertical-align: middle;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
-    .jogo-escudo img,
-    .palpite-escudo img {
+    .jogo-escudo img {
       width: 36px;
       height: 36px;
       object-fit: contain;
@@ -535,9 +537,22 @@
       margin: 0 auto 6px auto;
     }
 
+    .palpite-escudo img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      display: block;
+    }
+
     .palpite-time-name {
       font-size: 12px;
       font-weight: 700;
+      line-height: 1.25;
+      min-height: 30px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: center;
     }
 
     .palpite-score {
