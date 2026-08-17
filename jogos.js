@@ -440,11 +440,107 @@ const JOGOS = [
         fase: 'Libertadores - Oitavas de Final - AGG 1X1'
       },
       {
-        id: 'j51',
+        id: 'j56',
         time1: 'Flamengo',
         time2: 'Cruzeiro',
         hora: '21:30',
         data: '19/08/2026',
         fase: 'Libertadores - Oitavas de Final - AGG 1X1'
+      },
+      {
+        id: 'j57',
+        time1: 'LDU',
+        time2: 'Mirassol',
+        hora: '19:00',
+        data: '20/08/2026',
+        fase: 'Libertadores - Oitavas de Final - AGG 1X1'
+      },
+      {
+        id: 'j58',
+        time1: 'Corinthians',
+        time2: 'Rosario Central',
+        hora: '21:30',
+        data: '20/08/2026',
+        fase: 'Libertadores - Oitavas de Final - AGG 0X0'
+      },
+      {
+        id: 'j59',
+        time1: 'Fluminense',
+        time2: 'Remo',
+        hora: '16:00',
+        data: '22/08/2026',
+        fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j60',
+        time1: 'Internacional',
+        time2: 'Atlético-MG',
+        hora: '18:30',
+        data: '22/08/2026',
+        fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j61',
+        time1: 'Cruzeiro',
+        time2: 'Flamengo',
+        hora: '20:30',
+        data: '22/08/2026',
+        fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j62',
+        time1: 'Palmeiras',
+        time2: 'Vasco',
+        hora: '16:00',
+        data: '23/08/2026',
+        fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j63',
+        time1: 'RB Bragantino',
+        time2: 'Grêmio',
+        hora: '16:00',
+        data: '23/08/2026',
+        fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j64',
+        time1: 'Vitória',
+        time2: 'Bahia',
+        hora: '16:00',
+        data: '23/08/2026',
+        fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j65',
+        time1: 'Chapecoense',
+        time2: 'São Paulo',
+        hora: '18:30',
+        data: '23/08/2026',
+        fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j66',
+        time1: 'Santos',
+        time2: 'Mirassol',
+        hora: '18:30',
+        data: '23/08/2026',
+        fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j67',
+        time1: 'Coritiba',
+        time2: 'Corinthians',
+        hora: '19:30',
+        data: '23/08/2026',
+        fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j68',
+        time1: 'Botafogo',
+        time2: 'Athletico-PR',
+        hora: '20:00',
+        data: '24/08/2026',
+        fase: 'Brasileirao - Rodada 24'
       }
     ];
