@@ -10,7 +10,7 @@
   --surface: #ffffff;
   --border: #fce7f3;
   --text: #2d0c1e;
-  --muted: #8c6b7d;
+  --muted: #755767;
   --radius: 14px;
   --radius-sm: 8px;
 }
@@ -42,19 +42,35 @@ body {
 }
 
 .app-header {
-  text-align: center;
-  padding: 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px 20px;
   background: var(--primary-gradient);
   border-radius: var(--radius);
   margin-bottom: 24px;
   position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(163, 0, 98, 0.22);
+}
+
+.app-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 16px 16px;
+  pointer-events: none;
 }
 
 .app-header .header-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  transform: translateX(-20px);
+  align-items: flex-start;
+  text-align: left;
+  position: relative;
+  z-index: 1;
 }
 
 .app-header h1 {
@@ -74,10 +90,9 @@ body {
 }
 
 .app-header .trophy {
-  position: absolute;
-  right: 60px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
 }
 
 .app-header .trophy img {
@@ -101,10 +116,6 @@ body {
 }
 
 @media (max-width: 480px) {
-  .app-header .trophy {
-    right: 12px;
-  }
-
   .app-header .trophy img {
     width: 36px;
     height: 36px;
@@ -236,6 +247,10 @@ body {
   box-shadow: 0 2px 6px rgba(163, 0, 98, 0.25);
 }
 
+.acoes-toggle {
+  margin-top: 12px;
+}
+
 .sec-heading {
   display: flex;
   align-items: center;
@@ -260,36 +275,64 @@ body {
 }
 
 .jogo-card {
+  position: relative;
   background: white;
   border: 1px solid var(--border);
-  border-bottom: 4px solid var(--lesbian-magenta);
   border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 10px;
+  padding: 14px 16px 14px 20px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jogo-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--primary-gradient);
+}
+
+.jogo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(163, 0, 98, 0.14);
+}
+
+.jogo-centro {
+  width: 205px;
+  flex-shrink: 0;
+  text-align: center;
 }
 
 .jogo-fase {
-  display: inline-block;
-  padding: 3px 12px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px 8px;
   margin-bottom: 8px;
   border: 1px solid var(--lesbian-pink);
-  border-radius: 20px;
+  border-radius: 10px;
   background: #fff0f6;
   color: var(--lesbian-magenta);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.1px;
   text-transform: uppercase;
+  line-height: 1.3;
+  text-align: center;
 }
 
 .jogo-time {
   text-align: center;
   flex: 1;
+  min-width: 0;
 }
 
 .jogo-escudo {
@@ -320,6 +363,7 @@ body {
   font-weight: 700;
   color: var(--lesbian-magenta);
   display: block;
+  font-variant-numeric: tabular-nums;
 }
 
 .jogo-data {
@@ -335,12 +379,29 @@ body {
 }
 
 .pts-badge {
+  position: relative;
   flex: 1;
   background: white;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 30px 12px 12px;
   text-align: center;
+}
+
+.pts-badge::before {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+}
+
+.pts-badge:nth-child(1)::before {
+  content: "✅";
+}
+
+.pts-badge:nth-child(2)::before {
+  content: "🎯";
 }
 
 .pts-badge .pts-num {
@@ -530,18 +591,28 @@ body {
 }
 
 .jogo-escudo img {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
   display: block;
   margin: 0 auto 6px auto;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  padding: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .palpite-escudo img {
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
   display: block;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  padding: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .palpite-time-name {

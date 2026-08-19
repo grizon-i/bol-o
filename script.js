@@ -157,7 +157,7 @@ function renderJogos() {
           <span class="jogo-time-name">${j.time1}</span>
         </div>
 
-        <div style="text-align:center">
+        <div class="jogo-centro">
           ${j.fase ? `<div class="jogo-fase">${j.fase}</div>` : ''}
           <div class="jogo-vs">×</div>
           <span class="jogo-hora">${j.hora}</span>
