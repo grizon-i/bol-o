@@ -542,5 +542,45 @@ const JOGOS = [
         hora: '20:00',
         data: '24/08/2026',
         fase: 'Brasileirao - Rodada 24'
+      },
+      {
+        id: 'j69',
+        time1: 'Ind. del Valle',
+        time2: 'Tolima',
+        hora: '21:30',
+        data: '25/08/2026',
+        fase: 'Libertadores - Oitavas de Final - AGG 1X0'
+      },
+      {
+        id: 'j70',
+        time1: 'Cruzeiro',
+        time2: 'Atlético-MG',
+        hora: '21:00',
+        data: '25/08/2026',
+        fase: 'Copa do Brasil - Quartas de Final'
+      },
+      {
+        id: 'j71',
+        time1: 'Palmeiras',
+        time2: 'Santos',
+        hora: '21:30',
+        data: '26/08/2026',
+        fase: 'Copa do Brasil - Quartas de Final'
+      },
+      {
+        id: 'j72',
+        time1: 'Vasco',
+        time2: 'Vitória',
+        hora: '21:30',
+        data: '26/08/2026',
+        fase: 'Copa do Brasil - Quartas de Final'
+      },
+      {
+        id: 'j73',
+        time1: 'Internacional',
+        time2: 'Grêmio',
+        hora: '20:00',
+        data: '27/08/2026',
+        fase: 'Copa do Brasil - Quartas de Final'
       }
     ];
