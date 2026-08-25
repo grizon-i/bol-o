@@ -582,5 +582,85 @@ const JOGOS = [
         hora: '20:00',
         data: '27/08/2026',
         fase: 'Copa do Brasil - Quartas de Final'
+      },
+      {
+        id: 'j74',
+        time1: 'Atlético-MG',
+        time2: 'Vitória',
+        hora: '18:30',
+        data: '29/08/2026',
+        fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j75',
+        time1: 'São Paulo',
+        time2: 'RB Bragantino',
+        hora: '20:00',
+        data: '29/08/2026',
+        fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j76',
+        time1: 'Vasco',
+        time2: 'Cruzeiro',
+        hora: '21:20',
+        data: '29/08/2026',
+        fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j77',
+        time1: 'Athletico-PR',
+        time2: 'Fluminense',
+        hora: '11:00',
+        data: '30/08/2026',
+        fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j78',
+        time1: 'Corinthians',
+        time2: 'Santos',
+        hora: '16:00',
+        data: '30/08/2026',
+        fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j79',
+        time1: 'Flamengo',
+        time2: 'Botafogo',
+        hora: '16:00',
+        data: '30/08/2026',
+        fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j80',
+        time1: 'Grêmio',
+        time2: 'Chapecoense',
+        hora: '18:30',
+        data: '30/08/2026',
+        fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j81',
+        time1: 'Mirassol',
+        time2: 'Palmeiras',
+        hora: '18:30',
+        data: '30/08/2026',
+        fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j82',
+        time1: 'Bahia',
+        time2: 'Internacional',
+        hora: '19:30',
+        data: '30/08/2026',
+        fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j83',
+        time1: 'Remo',
+        time2: 'Coritiba',
+        hora: '20:00',
+        data: '31/08/2026',
+        fase: 'Brasileirão - Rodada 25'
       }
     ];
