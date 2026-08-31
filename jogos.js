@@ -662,5 +662,125 @@ const JOGOS = [
         hora: '20:00',
         data: '31/08/2026',
         fase: 'Brasileirão - Rodada 25'
+      },
+      {
+        id: 'j84',
+        time1: 'Atlético-MG',
+        time2: 'Cruzeiro',
+        hora: '21:00',
+        data: '01/09/2026',
+        fase: 'Copa do Brasil - Quartas de Final AGG 1X1'
+      },
+      {
+        id: 'j85',
+        time1: 'Flamengo',
+        time2: 'Mirassol',
+        hora: '19:30',
+        data: '02/09/2026',
+        fase: 'Brasileirão - Rodada 04'
+      },
+      {
+        id: 'j86',
+        time1: 'Santos',
+        time2: 'Palmeiras',
+        hora: '21:30',
+        data: '02/09/2026',
+        fase: 'Copa do Brasil - Quartas de Final AGG 0X3'
+      },
+      {
+        id: 'j87',
+        time1: 'Vitória',
+        time2: 'Vasco',
+        hora: '21:30',
+        data: '02/09/2026',
+        fase: 'Copa do Brasil - Quartas de Final AGG 0X1'
+      },
+      {
+        id: 'j87',
+        time1: 'Grêmio',
+        time2: 'Internacional',
+        hora: '20:00',
+        data: '03/09/2026',
+        fase: 'Copa do Brasil - Quartas de Final AGG 0X0'
+      },
+      {
+        id: 'j88',
+        time1: 'RB Bragantino',
+        time2: 'Bahia',
+        hora: '16:00',
+        data: '05/09/2026',
+        fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j89',
+        time1: 'São Paulo',
+        time2: 'Atlético-MG',
+        hora: '18:30',
+        data: '05/09/2026',
+        fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j90',
+        time1: 'Fluminense',
+        time2: 'Vasco',
+        hora: '21:00',
+        data: '05/09/2026',
+        fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j91',
+        time1: 'Coritiba',
+        time2: 'Mirassol',
+        hora: '11:00',
+        data: '06/09/2026',
+        fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j92',
+        time1: 'Cruzeiro',
+        time2: 'Athletico-PR',
+        hora: '16:00',
+        data: '06/09/2026',
+        fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j93',
+        time1: 'Internacional',
+        time2: 'Santos',
+        hora: '16:00',
+        data: '06/09/2026',
+        fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j94',
+        time1: 'Remo',
+        time2: 'Flamengo',
+        hora: '16:00',
+        data: '06/09/2026',
+        fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j95',
+        time1: 'Botafogo',
+        time2: 'Palmeiras',
+        hora: '18:30',
+        data: '06/09/2026',
+        fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j96',
+        time1: 'Corinthians',
+        time2: 'Chapecoense',
+        hora: '19:30',
+        data: '06/09/2026',
+        fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j97',
+        time1: 'Vitória',
+        time2: 'Grêmio',
+        hora: '20:00',
+        data: '07/09/2026',
+        fase: 'Brasileirão - Rodada 26'
       }
     ];
