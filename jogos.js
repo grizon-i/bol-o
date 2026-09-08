@@ -782,5 +782,117 @@ const JOGOS = [
         hora: '20:00',
         data: '07/09/2026',
         fase: 'Brasileirão - Rodada 26'
+      },
+      {
+        id: 'j99',
+        time1: 'Fluminense',
+        time2: 'Platense',
+        hora: '19:00',
+        data: '08/09/2026',
+        fase: 'Libertadores - Quartas de Final - IDA'
+      },
+      {
+        id: 'j100',
+        time1: 'Palmeiras',
+        time2: 'LDU',
+        hora: '19:00',
+        data: '09/09/2026',
+        fase: 'Libertadores - Quartas de Final - IDA'
+      },
+      {
+        id: 'j101',
+        time1: 'Estudiantes',
+        time2: 'Corinthians',
+        hora: '21:30',
+        data: '09/09/2026',
+        fase: 'Libertadores - Quartas de Final - IDA'
+      },
+      {
+        id: 'j102',
+        time1: 'Ind. del Valle',
+        time2: 'Flamengo',
+        hora: '21:30',
+        data: '10/09/2026',
+        fase: 'Libertadores - Quartas de Final - IDA'
+      },
+      {
+        id: 'j103',
+        time1: 'Coritiba',
+        time2: 'Athletico-PR',
+        hora: '21:00',
+        data: '11/09/2026',
+        fase: 'Brasileirão - Rodada 27'
+      },
+      {
+        id: 'j104',
+        time1: 'Mirassol',
+        time2: 'RB Bragantino',
+        hora: '21:00',
+        data: '11/09/2026',
+        fase: 'Brasileirão - Rodada 27'
+      },
+      {
+        id: 'j105',
+        time1: 'Atlético-MG',
+        time2: 'Fluminense',
+        hora: '16:00',
+        data: '12/09/2026',
+        fase: 'Brasileirão - Rodada 27'
+      },
+      {
+        id: 'j106',
+        time1: 'Grêmio',
+        time2: 'Vasco',
+        hora: '16:00',
+        data: '12/09/2026',
+        fase: 'Brasileirão - Rodada 27'
+      },
+      {
+        id: 'j107',
+        time1: 'Chapecoense',
+        time2: 'Internacional',
+        hora: '17:00',
+        data: '12/09/2026',
+        fase: 'Brasileirão - Rodada 27'
+      },
+      {
+        id: 'j108',
+        time1: 'Palmeiras',
+        time2: 'São Paulo',
+        hora: '18:30',
+        data: '12/09/2026',
+        fase: 'Brasileirão - Rodada 27'
+      },
+      {
+        id: 'j109',
+        time1: 'Botafogo',
+        time2: 'RB Bragantino',
+        hora: '20:30',
+        data: '12/09/2026',
+        fase: 'Brasileirão - Rodada 27'
+      },
+      {
+        id: 'j110',
+        time1: 'Santos',
+        time2: 'Cruzeiro',
+        hora: '21:00',
+        data: '12/09/2026',
+        fase: 'Brasileirão - Rodada 27'
+      },
+      {
+        id: 'j111',
+        time1: 'Mirassol',
+        time2: 'Vitória',
+        hora: '16:00',
+        data: '13/09/2026',
+        fase: 'Brasileirão - Rodada 27'
+      },
+      {
+        id: 'j112',
+        time1: 'Flamengo',
+        time2: 'Corinthians',
+        hora: '17:30',
+        data: '13/09/2026',
+        fase: 'Brasileirão - Rodada 27'
       }
     ];
